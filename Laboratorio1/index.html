@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulador de Asignación de Memoria</title>
+
+  <!-- Reference the external CSS file -->
+  <link rel="stylesheet" type="text/css" href="styles.css" />
+</head>
+
+<body>
+  <div class="section grid">
+    <div class="section">
+      <h1>Simulador de Asignación de Memoria</h1>
+      <div class="section">
+        <h2>Seleccionar Algoritmo:</h2>
+        <select id="algoritmo">
+          <option value="primer">Primer Ajuste</option>
+          <option value="peor">Peor Ajuste</option>
+          <option value="mejor">Mejor Ajuste</option>
+        </select>
+      </div>
+      <div class="section">
+        <h2>Seleccionar Tipo de Memoria:</h2>
+        <select class="select" id="tipo_memoria">
+          <option value="estatic-fijo">
+            Particiones Estáticas con Tamaño Fijo
+          </option>
+          <option value="estatic-variable">
+            Particiones Estáticas con Tamaño Variable
+          </option>
+          <option value="dinamic-sin">
+            Particiones Dinámicas sin Compactación
+          </option>
+          <option value="dinamic-con">
+            Particiones Dinámicas con Compactación
+          </option>
+        </select>
+      </div>
+      <div class="section">
+        <h2>Programas:</h2>
+        <h3>Agregar Programa:</h3>
+        <div class="program-list">
+          <label for="nomPrograma">Nombre del Programa:</label>
+          <br/>
+          <input type="text" id="nomPrograma" placeholder="Ingrese el nombre del programa" />
+          <br/>
+          <label for="tamPrograma">Tamaño de Memoria (Bytes):</label>
+          <input type="number" id="tamPrograma" placeholder="Tamaño en KB" />
+          <button class="button-common" onclick="addProgram()">
+            Agregar Programa
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section">
+        <div class="program-list">
+          <h3>Programas Instalados:</h3>
+          <table style="text-align: center;" id="programList">
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>Tamaño (KiB)</th>
+                <th>Acción</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <div class="contenedorTabla">
+          <h3>Programas en Ejecución:</h3>
+          <table id="t-ejecucion" class="table">
+            <thead>
+              <tr>
+                <th rowspan="2">PID</th>
+                <th rowspan="2">Nombre del Programa</th>
+                <th colspan="2">Bases</th>
+                <th rowspan="2">Tamaño</th>
+                <th rowspan="2">Cerrar</th>
+              </tr>
+              <tr>
+                <th>Hex</th>
+                <th>Dec</th>
+              </tr>
+            </thead>
+            <tbody id="runningProgramsTable"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="memory-container">
+      <table id="grafico" class="tabla-memoria">
+        <thead>
+          <tr>
+            <td>Hex</td>
+            <td>Dec</td>
+            <td>Programa</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              ox0
+            </td>
+            <td>
+              0
+            </td>
+            <td rowspan="2">
+              SO
+            </td>
+          </tr>
+          <tr>
+            <td>
+              oxA
+            </td>
+            <td>
+              10
+            </td>
+          </tr>
+          <tr>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <br>
+  <div class="nombres">
+    Desarrollado por: ...
+  </div>
+
+  <!-- Barra lateral para mostrar los programas en la memoria -->
+  <div class="Barra"></div>
+  <script src="modelo.js"></script>
+  <script src="estadoAjuste.js"></script>
+  <script src="estadoGestMem.js"></script>
+  <script src="control.js"></script>
+</body>
+
+</html>

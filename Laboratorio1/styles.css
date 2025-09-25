@@ -1,0 +1,206 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 2fr 2fr 1fr;
+}
+
+.section {
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.program-list {
+  margin-bottom: 20px;
+  background-color: #f0f0f0;
+  /* Add a background color */
+  padding: 10px;
+  /* Add padding to the section */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  /* Add a box shadow */
+}
+
+.running-programs {
+  margin-top: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: auto;
+}
+
+.program {
+  margin: 5px;
+}
+
+/* Add developer names below the running programs section */
+.developer-names {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #f0f0f0;
+}
+
+/* Right half of the screen */
+.right-half {
+  width: 50%;
+  padding: 20px;
+  background-color: #f0f0f0;
+}
+
+/* Table styles */
+.table {
+  width: 50%;
+  background-color: white;
+  text-align: left;
+  border-collapse: collapse;
+  color: black;
+}
+
+.contenedorTabla {
+  width: fit-content;
+  margin-left: 1px;
+  margin-top: 15px;
+  overflow-y: auto;
+  max-height: 652px;
+
+}
+
+.table th,
+.table td {
+  padding: 20px;
+  text-align: center;
+  border: 1px solid gray;
+}
+
+.table thead {
+  background-color: #051957;
+  /* border-bottom: solid 5px; */
+  color: #fcfcfc;
+}
+
+.tabler tr:nth-child(even) {
+  background-color: #ddd;
+}
+
+.table tr:hover td {
+  background-color: #369681;
+  color: white;
+}
+
+/* Style for text input fields */
+input[type="text"],
+input[type="number"] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+  font-size: 16px;
+}
+
+/* Style for buttons */
+.button-common {
+  appearance: none;
+  background-color: #2ea44f;
+  border: 1px solid rgba(27, 31, 35, .15);
+  border-radius: 6px;
+  box-shadow: rgba(27, 31, 35, .1) 0 1px 0;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-family: -apple-system, system-ui, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  padding: 6px 16px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.button-common:focus:not(:focus-visible):not(.focus-visible) {
+  box-shadow: none;
+  outline: none;
+}
+
+.button-common:hover {
+  background-color: #2c974b;
+}
+
+.button-common:focus {
+  box-shadow: rgba(46, 164, 79, .4) 0 0 0 3px;
+  outline: none;
+}
+
+.button-common:disabled {
+  background-color: #94d3a2;
+  border-color: rgba(27, 31, 35, .1);
+  color: rgba(255, 255, 255, .8);
+  cursor: default;
+}
+
+.button-common:active {
+  background-color: #298e46;
+  box-shadow: rgba(20, 70, 32, .2) 0 1px 0 inset;
+}
+
+select {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+  font-size: 16px;
+  font-family: Arial, sans-serif;
+  cursor: pointer;
+}
+
+/* Style for option items */
+select option {
+  background-color: white;
+  color: #333;
+  font-size: 14px;
+  font-weight: normal;
+}
+
+/* Style for the selected option */
+select option:checked {
+  background-color: #2ea44f;
+  color: #fff;
+  font-weight: bold;
+}
+
+.memory-container {
+  overflow-y: auto;
+}
+
+.tabla-memoria {
+  width: 100%;
+  text-align: center;
+  background: black;
+}
+
+.tabla-memoria td {
+  margin: 1px;
+  background: white;
+}
+
+.nombres {
+  position: sticky;
+  bottom: 0px;
+  left: 0px;
+  padding: 5px;
+  background: gray;
+  color: white;
+}
