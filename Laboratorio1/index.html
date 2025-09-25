@@ -9,136 +9,214 @@
 
   <!-- Reference the external CSS file -->
   <link rel="stylesheet" type="text/css" href="styles.css" />
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .section {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      background: #f9f9f9;
+    }
+
+    .memory-container,
+    .memory-espace {
+      margin-top: 20px;
+    }
+
+    /* Estilos modo oscuro */
+    .dark-mode {
+      background: #121212;
+      color: #eaeaea;
+    }
+
+    .dark-mode .section {
+      background: #1e1e1e;
+      border: 1px solid #444;
+    }
+
+    .dark-mode table {
+      background: #222;
+      color: #fff;
+      border: 1px solid #555;
+    }
+
+    .dark-mode th,
+    .dark-mode td {
+      border: 1px solid #555;
+    }
+
+    .dark-btn {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      padding: 8px 14px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      background: #333;
+      color: #fff;
+    }
+
+    .dark-mode .dark-btn {
+      background: #eee;
+      color: #111;
+    }
+  </style>
 </head>
 
 <body>
-  <div class="section grid">
+  <button class="dark-btn" onclick="toggleDarkMode()">🌙 Oscuro</button>
+
+  <h1>Simulador de Asignación de Memoria</h1>
+
+  <div class="container">
+    <!-- Columna izquierda -->
     <div class="section">
-      <h1>Simulador de Asignación de Memoria</h1>
-      <div class="section">
-        <h2>Seleccionar Algoritmo:</h2>
-        <select id="algoritmo">
-          <option value="primer">Primer Ajuste</option>
-          <option value="peor">Peor Ajuste</option>
-          <option value="mejor">Mejor Ajuste</option>
-        </select>
-      </div>
-      <div class="section">
-        <h2>Seleccionar Tipo de Memoria:</h2>
-        <select class="select" id="tipo_memoria">
-          <option value="estatic-fijo">
-            Particiones Estáticas con Tamaño Fijo
-          </option>
-          <option value="estatic-variable">
-            Particiones Estáticas con Tamaño Variable
-          </option>
-          <option value="dinamic-sin">
-            Particiones Dinámicas sin Compactación
-          </option>
-          <option value="dinamic-con">
-            Particiones Dinámicas con Compactación
-          </option>
-        </select>
-      </div>
-      <div class="section">
-        <h2>Programas:</h2>
-        <h3>Agregar Programa:</h3>
-        <div class="program-list">
-          <label for="nomPrograma">Nombre del Programa:</label>
-          <br/>
-          <input type="text" id="nomPrograma" placeholder="Ingrese el nombre del programa" />
-          <br/>
-          <label for="tamPrograma">Tamaño de Memoria (Bytes):</label>
-          <input type="number" id="tamPrograma" placeholder="Tamaño en KB" />
-          <button class="button-common" onclick="addProgram()">
-            Agregar Programa
-          </button>
-        </div>
+      <h2>Seleccionar Algoritmo:</h2>
+      <select id="algoritmo">
+        <option value="primer">Primer Ajuste</option>
+        <option value="peor">Peor Ajuste</option>
+        <option value="mejor">Mejor Ajuste</option>
+      </select>
+
+      <h2>Seleccionar Tipo de Memoria:</h2>
+      <select class="select" id="tipo_memoria">
+        <option value="estatic-fijo">
+          Particiones Estáticas con Tamaño Fijo
+        </option>
+        <option value="estatic-variable">
+          Particiones Estáticas con Tamaño Variable
+        </option>
+        <option value="dinamic-sin">
+          Particiones Dinámicas sin Compactación
+        </option>
+        <option value="dinamic-con">
+          Particiones Dinámicas con Compactación
+        </option>
+      </select>
+
+      <h2>Programas:</h2>
+      <h3>Agregar Programa:</h3>
+      <div class="program-list">
+        <label for="nomPrograma">Nombre del Programa:</label><br />
+        <input type="text" id="nomPrograma" placeholder="Ingrese el nombre del programa" /><br />
+        <label for="tamPrograma">Tamaño de Memoria (Bytes):</label>
+        <input type="number" id="tamPrograma" placeholder="Tamaño en KB" />
+        <button class="button-common" onclick="addProgram()">Agregar Programa</button>
       </div>
     </div>
 
+    <!-- Columna derecha -->
     <div class="section">
-      <div class="section">
-        <div class="program-list">
-          <h3>Programas Instalados:</h3>
-          <table style="text-align: center;" id="programList">
-            <thead>
-              <tr>
-                <th>Nombre</th>
-                <th>Tamaño (KiB)</th>
-                <th>Acción</th>
-              </tr>
-            </thead>
-            <tbody></tbody>
-          </table>
-        </div>
-        <div class="contenedorTabla">
-          <h3>Programas en Ejecución:</h3>
-          <table id="t-ejecucion" class="table">
-            <thead>
-              <tr>
-                <th rowspan="2">PID</th>
-                <th rowspan="2">Nombre del Programa</th>
-                <th colspan="2">Bases</th>
-                <th rowspan="2">Tamaño</th>
-                <th rowspan="2">Cerrar</th>
-              </tr>
-              <tr>
-                <th>Hex</th>
-                <th>Dec</th>
-              </tr>
-            </thead>
-            <tbody id="runningProgramsTable"></tbody>
-          </table>
-        </div>
+      <div class="program-list">
+        <h3>Programas Instalados:</h3>
+        <table style="text-align: center;" id="programList">
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Tamaño (KiB)</th>
+              <th>Acción</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+      <div class="contenedorTabla">
+        <h3>Programas en Ejecución:</h3>
+        <table id="t-ejecucion" class="table">
+          <thead>
+            <tr>
+              <th rowspan="2">PID</th>
+              <th rowspan="2">Nombre del Programa</th>
+              <th colspan="2">Bases</th>
+              <th rowspan="2">Tamaño</th>
+              <th rowspan="2">Cerrar</th>
+            </tr>
+            <tr>
+              <th>Hex</th>
+              <th>Dec</th>
+            </tr>
+          </thead>
+          <tbody id="runningProgramsTable"></tbody>
+        </table>
       </div>
     </div>
-    <div class="memory-container">
-      <table id="grafico" class="tabla-memoria">
-        <thead>
-          <tr>
-            <td>Hex</td>
-            <td>Dec</td>
-            <td>Programa</td>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>
-              ox0
-            </td>
-            <td>
-              0
-            </td>
-            <td rowspan="2">
-              SO
-            </td>
-          </tr>
-          <tr>
-            <td>
-              oxA
-            </td>
-            <td>
-              10
-            </td>
-          </tr>
-          <tr>
-          </tr>
-        </tbody>
-      </table>
-    </div>
   </div>
+
+  <!-- Gráfico de memoria -->
+  <div class="memory-container">
+    <h3>Memoria</h3>
+    <table id="grafico" class="tabla-memoria">
+      <thead>
+        <tr>
+          <td>Hex</td>
+          <td>Dec</td>
+          <td>Programa</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>0x0</td>
+          <td>0</td>
+          <td rowspan="2">SO</td>
+        </tr>
+        <tr>
+          <td>0xA</td>
+          <td>10</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Estado de memoria -->
+  <div class="memory-espace">
+    <h3>Estado de memoria</h3>
+    <table>
+      <tbody>
+        <tr>
+          <td>Ocupado</td>
+          <td>Ocupado</td>
+        </tr>
+        <tr>
+          <td>Libre</td>
+          <td>Libre</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
   <br>
   <div class="nombres">
     Desarrollado por: ...
   </div>
 
-  <!-- Barra lateral para mostrar los programas en la memoria -->
+  <!-- Barra lateral -->
   <div class="Barra"></div>
+
   <script src="modelo.js"></script>
   <script src="estadoAjuste.js"></script>
   <script src="estadoGestMem.js"></script>
   <script src="control.js"></script>
+
+  <script>
+    function toggleDarkMode() {
+      document.body.classList.toggle("dark-mode");
+      const btn = document.querySelector(".dark-btn");
+      btn.textContent = document.body.classList.contains("dark-mode") ? "☀️ Claro" : "🌙 Oscuro";
+    }
+  </script>
 </body>
 
 </html>
