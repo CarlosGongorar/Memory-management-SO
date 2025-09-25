@@ -26,7 +26,8 @@ class Memoria {
   #ajuste;
   #metodoGestionMem;
 
-  constructor(tamSo = 1048576, tamMem = 16777216) {
+  //aca se ponen los atributos que se necesiten
+  constructor(tamSo , tamMem ) {
     this.#ajuste = new ContextoAjuste();
     this.#metodoGestionMem = new ContextoGestMem();
     this.tamSo = tamSo;
@@ -47,6 +48,7 @@ class Memoria {
   }
 
   setMetodoGestion(metodo) {
+    
     if (metodo == 'estatic-fijo') {
       this.#metodoGestionMem = new GestionTamFijo();
     }

@@ -10,73 +10,10 @@
   <!-- Reference the external CSS file -->
   <link rel="stylesheet" type="text/css" href="styles.css" />
 
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      transition: background 0.3s, color 0.3s;
-    }
-
-    .container {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-    }
-
-    .section {
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      background: #f9f9f9;
-    }
-
-    .memory-container,
-    .memory-espace {
-      margin-top: 20px;
-    }
-
-    /* Estilos modo oscuro */
-    .dark-mode {
-      background: #121212;
-      color: #eaeaea;
-    }
-
-    .dark-mode .section {
-      background: #1e1e1e;
-      border: 1px solid #444;
-    }
-
-    .dark-mode table {
-      background: #222;
-      color: #fff;
-      border: 1px solid #555;
-    }
-
-    .dark-mode th,
-    .dark-mode td {
-      border: 1px solid #555;
-    }
-
-    .dark-btn {
-      position: fixed;
-      top: 10px;
-      right: 10px;
-      padding: 8px 14px;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      background: #333;
-      color: #fff;
-    }
-
-    .dark-mode .dark-btn {
-      background: #eee;
-      color: #111;
-    }
-  </style>
 </head>
 
 <body>
-  <button class="dark-btn" onclick="toggleDarkMode()">🌙 Oscuro</button>
+  <button class="dark-btn" onclick="toggleDarkMode()">🌙</button>
 
   <h1>Simulador de Asignación de Memoria</h1>
 
@@ -89,6 +26,22 @@
         <option value="peor">Peor Ajuste</option>
         <option value="mejor">Mejor Ajuste</option>
       </select>
+      <!-- Ejemplo -->
+      <div id="tamPartContainer" style="display:block;">
+        <h2>Seleccionar tamaño de las particiones:</h2>
+  <label for="tamPart">Tamaño de partición:</label>
+  <select class="select" id="tamPart">
+    <option value="32768">32 KB</option>
+    <option value="65536">64 KB</option>
+    <option value="131072">128 KB</option>
+    <option value="262144">256 KB</option>
+    <option value="524288">512 KB</option>
+    <option value="1048576" selected>1 MB</option>
+    <option value="2097152">2 MB</option>
+    <option value="4194304">4 MB</option>
+    <option value="8388608">8 MB</option>
+  </select>
+</div>
 
       <h2>Seleccionar Tipo de Memoria:</h2>
       <select class="select" id="tipo_memoria">
@@ -111,7 +64,7 @@
       <div class="program-list">
         <label for="nomPrograma">Nombre del Programa:</label><br />
         <input type="text" id="nomPrograma" placeholder="Ingrese el nombre del programa" /><br />
-        <label for="tamPrograma">Tamaño de Memoria (Bytes):</label>
+        <label for="tamPrograma">Tamaño de Memoria (KiloBytes):</label>
         <input type="number" id="tamPrograma" placeholder="Tamaño en KB" />
         <button class="button-common" onclick="addProgram()">Agregar Programa</button>
       </div>
@@ -187,11 +140,11 @@
       <tbody>
         <tr>
           <td>Ocupado</td>
-          <td id="ocupado">Ocupado</td>
+          <td id="ocupado">0</td>
         </tr>
         <tr>
           <td>Libre</td>
-          <td id="libre">Libre</td>
+          <td id="libre">16777216</td>
         </tr>
       </tbody>
     </table>

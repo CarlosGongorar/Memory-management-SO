@@ -1,3 +1,6 @@
+/* styles.css - reemplazar tu archivo actual por este */
+
+/* --- RESETEO BÁSICO --- */
 * {
   margin: 0;
   padding: 0;
@@ -9,7 +12,7 @@ body {
   background: #f5f7fa;
   color: #222;
   line-height: 1.5;
-  transition: background 0.3s, color 0.3s;
+  transition: background 0.25s, color 0.25s;
   padding: 20px;
 }
 
@@ -20,7 +23,6 @@ body {
   gap: 20px;
   margin-top: 20px;
 }
-
 
 /* --- SECCIONES --- */
 .section {
@@ -45,12 +47,15 @@ body {
 /* --- LISTAS DE PROGRAMAS --- */
 .program-list {
   margin-top: 10px;
+  background: transparent;
+  padding: 0;
 }
 
 .program-list label {
   font-weight: bold;
   display: block;
   margin: 6px 0 4px;
+  color: inherit;
 }
 
 /* --- INPUTS Y SELECTS --- */
@@ -65,7 +70,12 @@ select {
   font-size: 14px;
   background: #fff;
   color: #222;
-  transition: background 0.3s, color 0.3s, border 0.3s;
+  transition: background 0.25s, color 0.25s, border 0.25s;
+}
+
+/* placeholder color */
+input::placeholder {
+  color: #999;
 }
 
 /* --- BOTONES --- */
@@ -78,11 +88,26 @@ select {
   font-weight: bold;
   border-radius: 6px;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
 }
 
 .button-common:hover {
   background-color: #22863a;
+}
+
+/* estilo del botón oscuro (fijo) */
+.dark-btn {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  background: #333;
+  color: #fff;
+  font-size: 14px;
+  z-index: 1000;
 }
 
 /* --- TABLAS --- */
@@ -91,13 +116,14 @@ table {
   border-collapse: collapse;
   margin-top: 10px;
   font-size: 14px;
+  color: inherit;
 }
 
 th, td {
   border: 1px solid #ccc;
   padding: 8px;
   text-align: center;
-  transition: background 0.3s, color 0.3s;
+  transition: background 0.25s, color 0.25s, border-color 0.25s;
 }
 
 thead {
@@ -126,16 +152,25 @@ tbody tr:hover {
   margin-bottom: 10px;
 }
 
+/* tabla grafico memoria: permite celdas altas y que se vean bien */
+.tabla-memoria {
+  width: 100%;
+  table-layout: fixed;
+}
+
+.tabla-memoria td {
+  background: #fafafa;
+  color: inherit;
+  word-wrap: break-word;
+}
+
+/* Estado de memoria */
 .memory-espace {
   margin-top: 20px;
   padding: 15px;
   background: #fff;
   border-radius: 12px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-}
-
-.memory-espace h3 {
-  margin-bottom: 10px;
 }
 
 /* --- CRÉDITOS --- */
@@ -145,80 +180,120 @@ tbody tr:hover {
   text-align: center;
   font-size: 14px;
   color: white;
-  background: #051957;
+  background: #178908;
   border-radius: 8px;
 }
 
-/* --- BOTÓN MODO OSCURO --- */
-.dark-btn {
-  position: fixed;
-  top: 10px;
-  right: 10px;
-  padding: 8px 14px;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  background: #333;
-  color: #fff;
-  font-size: 14px;
-  z-index: 1000;
+/* --- ENLACES --- */
+a {
+  color: #0645ad;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
 }
 
-/* --- MODO OSCURO --- */
+/* --- CLASES UTILES --- */
+.contenedorTabla {
+  max-height: 480px;
+  overflow-y: auto;
+}
+
+/* --- MODO OSCURO (body recibe la clase .dark-mode) --- */
 .dark-mode {
   background: #121212;
-  color: #eaeaea;
+  color: #e6e6e6;
 }
 
-/* Secciones, memoria, tablas */
+/* fondos de contenedores */
 .dark-mode .section,
 .dark-mode .memory-container,
 .dark-mode .memory-espace {
   background: #1e1e1e;
-  border: 1px solid #444;
+  border: 1px solid #303030;
+  box-shadow: none;
 }
 
-/* Inputs y selects */
-.dark-mode input,
+/* inputs y selects */
+.dark-mode input[type="text"],
+.dark-mode input[type="number"],
 .dark-mode select {
-  background: #222;
-  color: #eee;
-  border: 1px solid #555;
+  background: #151515;
+  color: #e6e6e6;
+  border: 1px solid #3a3a3a;
 }
 
-/* Tablas */
+/* placeholder en oscuro */
+.dark-mode input::placeholder {
+  color: #9a9a9a;
+}
+
+/* tablas generales */
 .dark-mode table {
+  background: transparent;
+  color: #e6e6e6;
+}
+
+.dark-mode thead {
   background: #222;
   color: #fff;
 }
 
-.dark-mode th {
-  background: #333;
-  color: #eee;
-}
-
-.dark-mode td {
-  border: 1px solid #555;
+.dark-mode th, .dark-mode td {
+  border-color: #333;
   color: #ddd;
 }
 
+/* filas alternadas y hover en oscuro */
 .dark-mode tbody tr:nth-child(even) {
-  background: #1a1a1a;
+  background: #141414;
 }
 
 .dark-mode tbody tr:hover {
-  background: #333;
+  background: #2b2b2b;
 }
 
-/* Créditos */
-.dark-mode .nombres {
-  background: #222;
-  color: #eee;
+/* tabla memoria celdas */
+.dark-mode .tabla-memoria td {
+  background: #121212;
+  color: #ddd;
 }
 
-/* Botón */
+/* botones */
+.dark-mode .button-common {
+  background-color: #2b7a3b; /* más tenue en oscuro */
+  color: #f3f9f3;
+  border: 1px solid #1f5b2d;
+}
+.dark-mode .button-common:hover {
+  background-color: #25612f;
+}
+
+/* botón de alternar*/
 .dark-mode .dark-btn {
   background: #eee;
   color: #111;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
 }
 
+/* enlaces generados dinámicamente (ej. Finalizar / Ejecutar) */
+.dark-mode a {
+  color: #66a6ff;
+}
+.dark-mode a:hover {
+  color: #9fc7ff;
+}
+
+/* creditos en oscuro */
+.dark-mode .nombres {
+  background: #222;
+  color: #e6e6e6;
+}
+
+/* evitar que algún inline-style rompa contraste (si llegas a inyectar estilos inline) */
+/* esto sólo intenta asegurar lectura, no anula todos los inline-styles */
+.dark-mode * {
+  color: inherit !important;
+  background-color: inherit !important;
+  border-color: inherit !important;
+}

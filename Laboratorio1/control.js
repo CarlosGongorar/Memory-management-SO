@@ -1,17 +1,33 @@
-let memory = new Memoria();
+  let select = document.getElementById("tamPart");
+  let value = +select.value; // Obtiene el value
+  console.log(value);
+  
+let memory = new Memoria(value,16777216);
 let programs = [];
+let memoryAv=16777216;
 
 // Agregar un programa a la lista de programas
 function addProgram() {
   const nomPrograma = document.getElementById("nomPrograma").value;
   const tamPrograma = parseInt(document.getElementById("tamPrograma").value, 10)*1024;
-  if (nomPrograma.trim() === "" || isNaN(tamPrograma) || tamPrograma <= 0)
-    return;
-
+  if (nomPrograma.trim() === "" || isNaN(tamPrograma) || tamPrograma <= 0){
+return;
+//ingrese nombre
+  }
+    
   document.getElementById("nomPrograma").value = "";
   document.getElementById("tamPrograma").value = "";
   programs.push(new Programa(nomPrograma, tamPrograma));
-  actualizarProgramas();
+  actualizarMemoryState();
+}
+
+function actualizarMemoryState() {
+  let ocupado = 16777216 - memoryAv; // Memoria usada
+  let libre = memoryAv;              // Memoria libre
+
+  // Mostramos valores en KB o MB para que sea más entendible
+  document.getElementById('ocupado').textContent = (ocupado / 1024).toFixed(2) + " KB";
+  document.getElementById('libre').textContent = (libre / 1024).toFixed(2) + " KB";
 }
 
 function actualizarProgramas(){
@@ -31,14 +47,13 @@ function actualizarProgramas(){
     programList.appendChild(tr);
   });
 
-  //prueba ocupado / libre
-  let libre = document.getElementById('libre');
-  libre.textContent = "hola";
 }
 
 // Ejecutar un programa
 function runProgram(programa) {
   memory.ejecutarPrograma(programa);
+  memoryAv-=programa.tamano;
+  actualizarMemoryState();
   actualizarGrafico();
 }
 
@@ -47,6 +62,8 @@ function stopProgram(e) {
   e.preventDefault();
   let ind = parseInt(e.target.dataset.ind);
   memory.terminarPrograma(ind);
+  memoryAv+=programa.tamano;
+  actualizarMemoryState();
   actualizarGrafico();
 }
 
@@ -109,9 +126,40 @@ function inicializar(){
     memory.setAjuste(e.target.value)
   }
   document.querySelector('#tipo_memoria').onchange = (e)=>{
+    let tipo = e.target.value;
+
+  // Mostrar u ocultar lista de tamaños según selección
+  let contenedor = document.getElementById("tamPartContainer");
+
+  if (tipo === "estatic-fijo") {
+    contenedor.style.display = "block";
+  } else {
+    contenedor.style.display = "none";
+  }
     memory.setMetodoGestion(e.target.value)
     actualizarGrafico()
   }
+  // 👇 Manejar cambio de tamaño de particiones
+  document.querySelector('#tamPart').onchange = (e) => {
+    let value = +e.target.value; // Obtiene el valor en número
+    console.log("Nuevo tamaño de partición:", value);
+
+    // Reinicializar memoria y limpiar programas
+    memory = new Memoria(value, 16777216);
+    programs = [
+    new Programa("Notepad", 224649),
+    new Programa("Word", 286708),
+    new Programa("Excel", 309150),
+    new Programa("AutoCAD", 436201),
+    new Programa("Calculadora", 209462),
+    new Programa("p1", 3996608),
+    new Programa("p2", 1785608),
+    new Programa("p3", 2696608),
+  ]
+  actualizarProgramas();
+  actualizarGrafico();
+  }
+
   
   programs = [
     new Programa("Notepad", 224649),

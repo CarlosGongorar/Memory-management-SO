@@ -52,13 +52,13 @@ class GestionTamFijo extends MetodoEstatico {
         memSinReservar -= tamanoSO;
         while (memSinReservar >= tamanoSO) {
             i++;
-            particiones.push(new Particion(i * tamanoSO, tamanoSO));
+            particiones.push(new Particion((i * tamanoSO), tamanoSO));
             memSinReservar -= tamanoSO;
         }
         return particiones;
     }
 }
-
+/*
 class GestionTamVariable extends MetodoEstatico {
     iniciarParts(tamanoSO, tamMemoria) {
         let memSinReservar = tamMemoria;
@@ -80,15 +80,46 @@ class GestionTamVariable extends MetodoEstatico {
         }
         return particiones;
     }
+}*/
+class GestionTamVariable extends MetodoEstatico {
+  iniciarParts(tamanoSO, tamMemoria) {
+    let particiones = [];
+    let posicion = 0;
+
+    // 1 MB para el SO
+    particiones.push(new Particion(posicion, 1048576, "SO"));
+    posicion += 1048576;
+
+    // 2 de 4 MB
+    for (let i = 0; i < 2; i++) {
+      particiones.push(new Particion(posicion, 4194304));
+      posicion += 4194304;
+    }
+
+    // 2 de 2 MB
+    for (let i = 0; i < 2; i++) {
+      particiones.push(new Particion(posicion, 2097152));
+      posicion += 2097152;
+    }
+
+    // 2 de 1 MB (además del SO)
+    for (let i = 0; i < 2; i++) {
+      particiones.push(new Particion(posicion, 1048576));
+      posicion += 1048576;
+    }
+
+    // 2 de 0.5 MB
+    for (let i = 0; i < 2; i++) {
+      particiones.push(new Particion(posicion, 524288));
+      posicion += 524288;
+    }
+
+    return particiones;
+  }
 }
 
-class MetodoDinamicoSinCompactacion extends MetodoEstatico {
 
-    /**
-     * Reagrupa particiones cuando al borrar quedan dos o más particiones sin proceso contiguas
-     * @param {Particion[]} parts Particiones de la memoria
-     * @param {number} indPart Indice de la particion elminada
-     */
+class MetodoDinamicoSinCompactacion extends MetodoEstatico {
     validarParticiones(parts, indPart){
         if(indPart != 0 && parts[indPart-1].proceso == null){
             parts[indPart-1].tamano += parts[indPart].tamano;
