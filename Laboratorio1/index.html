@@ -187,11 +187,11 @@
       <tbody>
         <tr>
           <td>Ocupado</td>
-          <td>Ocupado</td>
+          <td id="ocupado">Ocupado</td>
         </tr>
         <tr>
           <td>Libre</td>
-          <td>Libre</td>
+          <td id="libre">Libre</td>
         </tr>
       </tbody>
     </table>
@@ -214,7 +214,7 @@
     function toggleDarkMode() {
       document.body.classList.toggle("dark-mode");
       const btn = document.querySelector(".dark-btn");
-      btn.textContent = document.body.classList.contains("dark-mode") ? "☀️ Claro" : "🌙 Oscuro";
+      btn.textContent = document.body.classList.contains("dark-mode") ? "☀️" : "🌙";
     }
   </script>
 </body>

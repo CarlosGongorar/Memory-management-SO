@@ -30,6 +30,10 @@ function actualizarProgramas(){
     }
     programList.appendChild(tr);
   });
+
+  //prueba ocupado / libre
+  let libre = document.getElementById('libre');
+  libre.textContent = "hola";
 }
 
 // Ejecutar un programa
