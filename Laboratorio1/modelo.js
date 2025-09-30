@@ -73,6 +73,7 @@ class Memoria {
     }
     else {
       this.#metodoGestionMem.iniciarProceso(this.particiones, indPart, programa, ++this.ultimoPid);
+      return true;
     }
   }
 
@@ -81,5 +82,8 @@ class Memoria {
       return;
     }
     this.#metodoGestionMem.terminarProceso(this.particiones, indPart);
+  }
+  obtenerPrograma(indPart){
+    return this.#metodoGestionMem.obtenerProceso(this.particiones, indPart);
   }
 }

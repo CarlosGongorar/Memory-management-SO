@@ -4,7 +4,9 @@
   
 let memory = new Memoria(value,16777216);
 let programs = [];
+
 let memoryAv=16777216;
+let tipoGest="estatic-fijo";
 
 // Agregar un programa a la lista de programas
 function addProgram() {
@@ -18,16 +20,31 @@ return;
   document.getElementById("nomPrograma").value = "";
   document.getElementById("tamPrograma").value = "";
   programs.push(new Programa(nomPrograma, tamPrograma));
-  actualizarMemoryState();
+  actualizarProgramas();
 }
 
-function actualizarMemoryState() {
-  let ocupado = 16777216 - memoryAv; // Memoria usada
-  let libre = memoryAv;              // Memoria libre
+function actualizarMemoryState(min) {
+            // Memoria libre
 
-  // Mostramos valores en KB o MB para que sea más entendible
-  document.getElementById('ocupado').textContent = (ocupado / 1024).toFixed(2) + " KB";
-  document.getElementById('libre').textContent = (libre / 1024).toFixed(2) + " KB";
+  
+  if(tipoGest==="estatic-fijo"){
+    if(min<0){
+    min=-memory.particiones[0].tamano;
+    }else if(min<=memory.particiones[0].tamano){
+      min=memory.particiones[0].tamano;
+    }
+    //console.log(min);
+  }
+  
+  memoryAv-=min;
+  //console.log(memoryAv);
+  
+  let ocupado = 16777216 - memoryAv; // Memoria usada
+  //console.log("ocupado " , ocupado);
+  
+  let libre = memoryAv;    
+  document.getElementById('ocupado').textContent = ocupado + " Bytes";
+  document.getElementById('libre').textContent = libre + " Bytes";
 }
 
 function actualizarProgramas(){
@@ -51,9 +68,11 @@ function actualizarProgramas(){
 
 // Ejecutar un programa
 function runProgram(programa) {
-  memory.ejecutarPrograma(programa);
-  memoryAv-=programa.tamano;
-  actualizarMemoryState();
+  flag=memory.ejecutarPrograma(programa);
+  if(flag){
+    actualizarMemoryState(programa.tamano);
+  }
+  
   actualizarGrafico();
 }
 
@@ -61,9 +80,12 @@ function runProgram(programa) {
 function stopProgram(e) {
   e.preventDefault();
   let ind = parseInt(e.target.dataset.ind);
+  if(ind==0){
+    return;
+  }
+  //console.log(memory.obtenerPrograma(ind).programa);
+  actualizarMemoryState(-memory.obtenerPrograma(ind).programa.tamano);
   memory.terminarPrograma(ind);
-  memoryAv+=programa.tamano;
-  actualizarMemoryState();
   actualizarGrafico();
 }
 
@@ -126,8 +148,11 @@ function inicializar(){
     memory.setAjuste(e.target.value)
   }
   document.querySelector('#tipo_memoria').onchange = (e)=>{
+    
     let tipo = e.target.value;
-
+    tipoGest = tipo;
+    //console.log(tipoGest);
+    
   // Mostrar u ocultar lista de tamaños según selección
   let contenedor = document.getElementById("tamPartContainer");
 
@@ -146,6 +171,7 @@ function inicializar(){
 
     // Reinicializar memoria y limpiar programas
     memory = new Memoria(value, 16777216);
+    memoryAv=16777216;
     programs = [
     new Programa("Notepad", 224649),
     new Programa("Word", 286708),
@@ -156,6 +182,7 @@ function inicializar(){
     new Programa("p2", 1785608),
     new Programa("p3", 2696608),
   ]
+  actualizarMemoryState(memory.particiones[0].tamano);
   actualizarProgramas();
   actualizarGrafico();
   }
@@ -171,6 +198,7 @@ function inicializar(){
     new Programa("p2", 1785608),
     new Programa("p3", 2696608),
   ]
+  actualizarMemoryState(memory.particiones[0].tamano);
   actualizarProgramas();
   actualizarGrafico();
 }

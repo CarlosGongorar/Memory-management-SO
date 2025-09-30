@@ -18,6 +18,9 @@ class ContextoGestMem {
     terminarProceso(parts, indPart) {
         return this.#estadoPart.terminarProceso(parts, indPart);
     }
+    obtenerProceso(parts, indPart) {
+        return this.#estadoPart.obtenerProceso(parts, indPart);
+    }
 }
 
 class MetodoGestion {
@@ -31,6 +34,9 @@ class MetodoGestion {
     terminarProceso(parts, indPart) {
         throw new Error("Method 'terminarProceso(parts, indPart)' must be implemented.");
     }
+    obtenerProceso(parts, indPart) {
+        throw new Error("Method 'obtenerProceso(parts, indPart)' must be implemented.");
+    }
 }
 
 class MetodoEstatico extends MetodoGestion {
@@ -39,6 +45,9 @@ class MetodoEstatico extends MetodoGestion {
     }
     terminarProceso(parts, indPart) {
         parts[indPart].proceso = null;
+    }
+    obtenerProceso(parts, indPart){
+        return parts[indPart].proceso;
     }
 }
 
