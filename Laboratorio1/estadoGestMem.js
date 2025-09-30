@@ -98,31 +98,26 @@ class GestionTamVariable extends MetodoEstatico {
     // 1 MB para el SO
     particiones.push(new Particion(posicion, 1048576, "SO"));
     posicion += 1048576;
-
+        // 2 de 0.5 MB
+    for (let i = 0; i < 2; i++) {
+      particiones.push(new Particion(posicion, 524288));
+      posicion += 524288;
+    }
+        // 2 de 1 MB (además del SO)
+    for (let i = 0; i < 2; i++) {
+      particiones.push(new Particion(posicion, 1048576));
+      posicion += 1048576;
+    }
+        // 2 de 2 MB
+    for (let i = 0; i < 2; i++) {
+      particiones.push(new Particion(posicion, 2097152));
+      posicion += 2097152;
+    }
     // 2 de 4 MB
     for (let i = 0; i < 2; i++) {
       particiones.push(new Particion(posicion, 4194304));
       posicion += 4194304;
     }
-
-    // 2 de 2 MB
-    for (let i = 0; i < 2; i++) {
-      particiones.push(new Particion(posicion, 2097152));
-      posicion += 2097152;
-    }
-
-    // 2 de 1 MB (además del SO)
-    for (let i = 0; i < 2; i++) {
-      particiones.push(new Particion(posicion, 1048576));
-      posicion += 1048576;
-    }
-
-    // 2 de 0.5 MB
-    for (let i = 0; i < 2; i++) {
-      particiones.push(new Particion(posicion, 524288));
-      posicion += 524288;
-    }
-
     return particiones;
   }
 }

@@ -24,9 +24,6 @@ return;
 }
 
 function actualizarMemoryState(min) {
-            // Memoria libre
-
-  
   if(tipoGest==="estatic-fijo"){
     if(min<0){
     min=-memory.particiones[0].tamano;
@@ -161,6 +158,9 @@ function inicializar(){
   } else {
     contenedor.style.display = "none";
   }
+    memory = new Memoria(value, 16777216);
+    memoryAv=16777216;
+    actualizarMemoryState(memory.particiones[0].tamano);
     memory.setMetodoGestion(e.target.value)
     actualizarGrafico()
   }

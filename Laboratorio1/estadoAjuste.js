@@ -28,6 +28,7 @@ class Ajuste {
 
 class PrimerAjuste extends Ajuste {
     encontrarPart(parts, programa) {
+        console.log("fdsf");
         let encontrado = false;
         for (let i = 0; i < parts.length; i++) {
             if (parts[i].proceso == null && parts[i].tamano >= programa.tamano) {
@@ -38,7 +39,7 @@ class PrimerAjuste extends Ajuste {
         return encontrado;
     }
 }
-
+/*
 class MejorAjuste extends Ajuste {
     encontrarPart(parts, programa) {
         let iMasPequena = false;
@@ -52,11 +53,36 @@ class MejorAjuste extends Ajuste {
         }
         return iMasPequena;
     }
+}*/
+class MejorAjuste extends Ajuste {
+    encontrarPart(parts, programa) {
+        let iMasPequena = -1; // -1 si no encuentra ninguna
+
+        for (let i = 0; i < parts.length; i++) {
+            let libre = parts[i].proceso == null;
+            let cabe = programa.tamano <= parts[i].tamano;
+
+            if (libre && cabe) {
+                if (
+                    iMasPequena === -1 || 
+                    parts[i].tamano < parts[iMasPequena].tamano
+                ) {
+                    iMasPequena = i;
+                }
+            }
+        }
+
+        return iMasPequena;
+    }
 }
 
+/*
 class PeorAjuste extends Ajuste {
     encontrarPart(parts, programa) {
-        let iMasGrande = false;
+        console.log("hola");
+        
+        let iMasGrande = 0;
+        let flagMasGrande = false;
         for (let i = 0; i < parts.length; i++) {
             let partDisponible = parts[i].proceso == null;
             let partMenosOptima = (!iMasGrande || parts[i].tamano > parts[iMasGrande].tamano);
@@ -65,6 +91,29 @@ class PeorAjuste extends Ajuste {
                 iMasGrande = i;
             }
         }
+        return iMasGrande;
+    }
+}*/
+class PeorAjuste extends Ajuste {
+    encontrarPart(parts, programa) {
+        let iMasGrande = -1; // -1 si no encuentra ninguna
+
+        for (let i = 0; i < parts.length; i++) {
+            console.log("tamaño ",parts[i].tamano);
+            
+            let libre = parts[i].proceso == null;
+            let cabe = programa.tamano <= parts[i].tamano;
+
+            if (libre && cabe) {
+                if (
+                    iMasGrande === -1 || 
+                    parts[i].tamano > parts[iMasGrande].tamano
+                ) {
+                    iMasGrande = i;
+                }
+            }
+        }
+
         return iMasGrande;
     }
 }

@@ -68,6 +68,8 @@ class Memoria {
 
   ejecutarPrograma(programa) {
     let indPart = this.#ajuste.encontrarPart(this.particiones, programa);
+    console.log(indPart);
+    
     if (indPart === false) {
       alert("No se puede ejecutar el programa");
     }
