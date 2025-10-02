@@ -153,10 +153,15 @@ function inicializar(){
   // Mostrar u ocultar lista de tamaños según selección
   let contenedor = document.getElementById("tamPartContainer");
 
+  let contenedorAlg = document.getElementById("selectAlgtContainer");
   if (tipo === "estatic-fijo") {
     contenedor.style.display = "block";
+    contenedorAlg.style.display = "none";
+  }else if(tipo === "dinamic-con"){
+    contenedorAlg.style.display = "none";
   } else {
     contenedor.style.display = "none";
+    contenedorAlg.style.display = "block";
   }
     memory = new Memoria(value, 16777216);
     memoryAv=16777216;
@@ -172,7 +177,7 @@ function inicializar(){
     // Reinicializar memoria y limpiar programas
     memory = new Memoria(value, 16777216);
     memoryAv=16777216;
-    programs = [
+  programs = [
     new Programa("Notepad", 224649),
     new Programa("Word", 286708),
     new Programa("Excel", 309150),
