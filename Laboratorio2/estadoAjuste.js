@@ -1,4 +1,3 @@
-
 class ContextoAjuste {
   #estadoAjuste = null;
   constructor(ajusteInicial = new PrimerAjuste()) {
@@ -20,7 +19,6 @@ class Ajuste {
       throw new Error("Abstract classes can't be instantiated.");
     }
   }
-
   encontrarPart() {
     throw new Error("Method 'encontrarPart()' must be implemented.");
   }

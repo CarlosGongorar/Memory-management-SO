@@ -4,14 +4,14 @@ let programs = [];
 // Agregar un programa a la lista de programas
 function addProgram() {
   const nomPrograma = document.getElementById("nomPrograma").value;
-  const textPrograma = parseInt(document.getElementById("textPrograma").value, 10);
+  const textPrograma = parseInt(document.getElementById("tamPrograma").value, 10);
   const dataPrograma = parseInt(document.getElementById("dataPrograma").value, 10);
   const bssPrograma = parseInt(document.getElementById("bssPrograma").value, 10);
   if (nomPrograma.trim() === "" || isNaN(textPrograma) || textPrograma <= 0 || isNaN(dataPrograma) || dataPrograma <= 0 || isNaN(bssPrograma) || dataPrograma <= 0)
     return;
 
   document.getElementById("nomPrograma").value = "";
-  document.getElementById("textPrograma").value = "";
+  document.getElementById("tamPrograma").value = "";
   document.getElementById("dataPrograma").value = "";
   document.getElementById("bssPrograma").value = "";
   programs.push(new Programa(nomPrograma, textPrograma, dataPrograma, bssPrograma));
@@ -52,12 +52,17 @@ function stopProgram(e) {
   let ind = parseInt(e.target.dataset.ind);
   memory.terminarPrograma(ind);
   actualizarGrafico();
+  dibujarDivisiones();
 }
 
 function dibujarDivisiones(ind) {
   
   let cabecera = document.querySelector("#t-seg-head");
   let body = document.querySelector("#segments");
+  let proenej = document.querySelector("#programa-en-ejecucion");
+  if(memory.procesos[ind]){
+  proenej.textContent=`${memory.procesos[ind].programa.nombre}`;
+  
   body.innerHTML = ''
   if (memory.metodoMem == 'p') {
     cabecera.innerHTML = `
@@ -114,6 +119,44 @@ function dibujarDivisiones(ind) {
       `
       body.appendChild(tr)
     }
+  }
+  }else{
+    proenej.textContent="";
+    if (memory.metodoMem == 'p') {
+    body.innerHTML=``;
+    cabecera.innerHTML = `
+        <tr>
+          <th colspan='2'>Página</th>
+          <th colspan='2'>Marco</th>
+          <th rowspan="2">Presente</th>
+        </tr>
+        <tr>
+          <th id="parameters">Hex</th>
+          <th id="parameters">Dec</th>
+          <th id="parameters">Hex</th>
+          <th id="parameters">Dec</th>
+        </tr>
+      `;
+  }
+  else {
+    cabecera.innerHTML = `
+      <tr>
+        <th colspan='2'>Numero</th>
+        <th colspan='2'>Base</th>
+        <th colspan='2'>Limite</th>
+        <th rowspan="2">Permisos</th>
+      </tr>
+      <tr>
+        <th id="parameters">Hex</th>
+        <th id="parameters">Dec</th>
+        <th id="parameters">Hex</th>
+        <th id="parameters">Dec</th>
+        <th id="parameters">Hex</th>
+        <th id="parameters">Dec</th>
+      </tr>`;
+    body.innerHTML = ``;
+    
+  }
   }
 }
 function selectProgram(e) {
@@ -271,6 +314,7 @@ document.querySelector('#tipo_memoria').onchange = (e) => {
   } else {
     segInfoDiv.style.display = "none";
   }
+  dibujarDivisiones();
 };
   document.getElementById("tamSeg").addEventListener("change", () => {
     actualizarTablaSegmentacion();
