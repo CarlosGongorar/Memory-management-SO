@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulador de Planificación</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <div class="grid">
+    
+    <div class="section ovfs">
+      <h3>Nuevo Proceso</h3>
+      <div class="program-list">
+        <label for="nomPrograma">Nombre:</label>
+        <input type="text" id="nomPrograma" placeholder="Ej: P1">
+
+        <label for="instantellegadaPrograma">Llegada (T):</label>
+        <input type="number" id="instantellegadaPrograma" placeholder="0" min="0">
+
+        <label for="ejecucionPrograma">Duración (CPU):</label>
+        <input type="number" id="ejecucionPrograma" placeholder="Ej: 5" min="1">
+
+        <label for="iniciobPrograma">Inicio Bloqueos:</label>
+        <input type="text" id="iniciobPrograma" placeholder="Ej: 2, 5">
+
+        <label for="duracionbPrograma">Duración Bloqueos:</label>
+        <input type="text" id="duracionbPrograma" placeholder="Ej: 1, 3">
+
+        <button class="button-common btn-primary" onclick="addProgram()">
+          + Agregar Proceso
+        </button>
+      </div>
+    </div>
+
+    <div class="right-panel">
+      
+      <div class="simulation-controls">
+        <label for="algoritmo" style="width:auto; font-weight:600; color:#475569;">Algoritmo:</label>
+        <select id="algoritmo">
+          <option value="FCFS">FCFS (First Come First Served)</option>
+          <option value="SJF">SJF (Shortest Job First)</option>
+          <option value="SRTF">SRTF (Remaining Time)</option>
+          <option value="RR">RR (Round Robin)</option>
+        </select>
+
+        <input type="number" id="quantum" placeholder="Quantum (RR)" style="max-width: 100px;">
+        
+        <button class="button-common btn-success" onclick="startSimulation()">
+          ▶ Iniciar Simulación
+        </button>
+      </div>
+
+      <div class="tables-row">
+        
+        <div class="table-container">
+          <table class="table" id="programList">
+            <thead>
+              <tr>
+                <th colspan="5" style="background: #eef2ff; color:#4338ca;">COLA DE PROCESOS</th>
+              </tr>
+              <tr>
+                <th>Nombre</th>
+                <th>Llegada</th>
+                <th>CPU</th>
+                <th>Bloqueos</th>
+                <th>Acción</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+
+        <div class="table-container">
+          <table class="table" id="t-stats">
+            <thead>
+              <tr>
+                <th colspan="6" style="background: #eef2ff; color:#4338ca;">MÉTRICAS Y RESULTADOS</th>
+              </tr>
+              <tr>
+                <th>Proceso</th>
+                <th>Tiempo de<br>Retorno</th>
+                <th>Tiempo<br>Perdido</th>
+                <th>Tiempo de<br>Espera</th>
+                <th>Proporción<br>Penalidad</th>
+                <th>Tiempo de<br>Respuesta</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="section simulation-container">
+      <div class="leyenda">
+        <span style="font-weight: bold; color:#334155;">Estados:</span>
+        <div style="display:flex; align-items:center;"><span class="example execute"></span> Ejecución</div>
+        <div style="display:flex; align-items:center;"><span class="example waiting"></span> Espera</div>
+        <div style="display:flex; align-items:center;"><span class="example locked"></span> Bloqueo</div>
+      </div>
+      
+      <div class="gantt-wrapper">
+        <table class="tabla-simulacion" id="grafico">
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="modelo.js"></script>
+  <script src="estadoAlgoritmo.js"></script>
+  <script src="control.js"></script>
+</body>
+</html>
